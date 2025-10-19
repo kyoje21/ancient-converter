@@ -1,25 +1,20 @@
+import path from "path";
+import { promises as fs } from "fs";
+
 export default async function handler(req, res) {
   try {
     const { amount = "1", currency = "USD", mode = "modern-to-historical" } = req.query;
     const amt = Number(amount) || 0;
     const apiKey = process.env.FXRATES_API_KEY;
-
-    // ✅ Load the JSON file from the deployed public directory
-    const baseUrl =
-      process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : "http://localhost:3000";
-
-    const jsonUrl = `${baseUrl}/data/historical.json`;
-    const response = await fetch(jsonUrl);
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch historical.json from public directory.");
+    if (!apiKey) {
+      return res.status(500).json({ error: "FXRATES_API_KEY not set." });
     }
 
-    const historical = await response.json();
+    // ✅ Load JSON directly from the filesystem
+    const filePath = path.join(process.cwd(), "public", "data", "historical.json");
+    const jsonData = await fs.readFile(filePath, "utf-8");
+    const historical = JSON.parse(jsonData);
 
-    // === currency conversion ===
     const cur = String(currency).toUpperCase();
 
     async function getRate(base, symbols) {
