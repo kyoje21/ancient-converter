@@ -20,7 +20,7 @@ let latestData = [];
 // ===== Mode Button =====
 const modeBtn = document.getElementById("modeBtn");
 
-// Initial button state
+// Initial button style
 modeBtn.textContent = "Modern → Historical";
 modeBtn.style.backgroundColor = MODE_COLORS.modernToHistorical.border;
 modeBtn.style.color = MODE_COLORS.modernToHistorical.accent;
@@ -55,9 +55,17 @@ async function convert() {
   civGrid.innerHTML = "";
 
   try {
-    const res = await fetch(`/api/convert?currency=${currency}&amount=${amount}&mode=${mode}`);
+    // ✅ Load from local JSON if running locally, otherwise from API
+    const apiUrl =
+      window.location.hostname === "localhost"
+        ? "/data/historical.json"
+        : `/api/convert?currency=${currency}&amount=${amount}&mode=${mode}`;
+
+    const res = await fetch(apiUrl);
     const data = await res.json();
-    latestData = data.results || [];
+
+    // ✅ Handle local or API format
+    latestData = data.results || data.civilizations || [];
 
     const currentModeColor =
       mode === "modern-to-historical"
@@ -69,10 +77,11 @@ async function convert() {
       return;
     }
 
+    // ===== Create Cards =====
     latestData.forEach((r) => {
       const card = document.createElement("div");
       card.className = "flip-card w-full h-48 cursor-pointer";
-      const imageSrc = r.image || `images/leaders/default.webp`;
+      const imageSrc = r.image || `images/default.webp`;
 
       card.innerHTML = `
         <div class="flip-inner relative w-full h-full transition-transform duration-500" style="transform-style: preserve-3d;">
@@ -117,7 +126,7 @@ async function convert() {
   }
 }
 
-// ===== Get Result Text =====
+// ===== Result Text Formatting =====
 function getResultText(r) {
   let value = null;
 
@@ -135,15 +144,19 @@ function getResultText(r) {
     else value = Number(value.toFixed(2));
     return `${r.input_historical_amount} ${r.unit} ≈ ${value} ${r.target_currency}`;
   } 
+  else if (r.modern_usd && r.unit) {
+    // ✅ Handle local JSON
+    return `≈ ${r.modern_usd.toLocaleString()} USD per ${r.unit}`;
+  }
   else {
     return "No data available";
   }
 }
 
-// ===== Convert Button =====
+// ===== Convert Button Styling =====
 const convertBtn = document.getElementById("convertBtn");
 convertBtn.style.backgroundColor = "#D5A73B"; // Doric Gold
-convertBtn.style.color = "grey-900";
+convertBtn.style.color = "#1b1f2f";
 convertBtn.style.fontWeight = "600";
 convertBtn.style.padding = "0.5rem 1.25rem";
 convertBtn.style.border = "none";
