@@ -1,0 +1,160 @@
+{
+      "baseline": {
+        "modern_daily_wage_usd": 100.0,
+        "basket_definition": "Grain/staple food, housing/shelter, clothing, energy/fuel",
+        "ppi_scale": "1.0 = covers a daily family basket of essentials"
+      },
+      "civilizations": [
+        {
+          "name": "Babylonia (Old Babylonian)",
+          "unit": "Shekel (silver)",
+          "days_equivalent": 30,
+          "modern_usd": 3000.0,
+          "basket_coverage": 2.5,
+          "note": "1 shekel could buy ~300 liters of barley; enough for a family for weeks.",
+          "year_range": "2000 to 1600 BCE",
+          "image": "/images/Nebuchadnezzar_II.webp"
+        },
+        {
+          "name": "Ancient Egypt (New Kingdom)",
+          "unit": "Daily Ration",
+          "days_equivalent": 5,
+          "modern_usd": 100.0,
+          "basket_coverage": 1.0,
+          "note": "Wages given in bread/beer/oil rations.",
+          "year_range": "1550 to 1070 BCE",
+          "image": "/images/Ramesses_II_(Civ5).webp"
+        },
+        {
+          "name": "Persian Achaemenid Empire",
+          "unit": "Daric (gold)",
+          "days_equivalent": 4,
+          "modern_usd": 400.0,
+          "basket_coverage": 3.5,
+          "note": "Gold daric worth several days of food and clothing.",
+          "year_range": "550 to 330 BCE",
+          "image": "/images/Darius_I_(Civ5).webp"
+        },
+        {
+          "name": "Ancient Greece (Classical Athens)",
+          "unit": "Drachma",
+          "days_equivalent": 1,
+          "modern_usd": 100.0,
+          "basket_coverage": 1.2,
+          "note": "One drachma bought more grain than a family needed for a day",
+          "year_range": "500 to 323 BCE",
+          "image": "/images/Alexander_(Civ5).webp"
+        },
+        {
+          "name": "Maurya Empire (India)",
+          "unit": "Karshapana coin",
+          "days_equivalent": 1,
+          "modern_usd": 100.0,
+          "basket_coverage": 1.1,
+          "note": "One coin covered daily needs with modest surplus.",
+          "year_range": "321 to 185 BCE",
+          "image": "/images/Gandhi_(Civ5).webp"
+        },
+        {
+          "name": "Hellenistic Kingdoms",
+          "unit": "Tetradrachm",
+          "days_equivalent": 4,
+          "modern_usd": 400.0,
+          "basket_coverage": 4.8,
+          "note": "A tetradrachm equaled four days wages, often used for bulk trade.",
+          "year_range": "323 to 31 BCE",
+          "image": "/images/Alexander_(Civ5).webp"
+        },
+        {
+          "name": "Roman Republic & Early Empire",
+          "unit": "Denarius",
+          "days_equivalent": 1,
+          "modern_usd": 100.0,
+          "basket_coverage": 1.0,
+          "note": "1 denerius covered daily food and some surplus.",
+          "year_range": "509 BCE to 27 CE",
+          "image": "/images/Augustus_Caesar_(Civ5).webp"
+        },
+        {
+          "name": "Han Dynasty (China)",
+          "unit": "Wu Zhu Coins",
+          "days_equivalent": 1,
+          "modern_usd": 100.0,
+          "basket_coverage": 0.8,
+          "note": "Wages covered subsistence food but limited surplus for other needs.",
+          "year_range": "202 BCE to 220 CE",
+          "image": "/images/Wu_Zetian_(Civ5).webp"
+        },
+        {
+          "name": "Parthian / Sassanian Empire",
+          "unit": "Silver Drachm",
+          "days_equivalent": 1,
+          "modern_usd": 100.0,
+          "basket_coverage": 1.0,
+          "note": "1 Silver Drachm covered daily food and some surplus.",
+          "year_range": "247 BCE to 651 CE",
+          "image": "/images/parthian.png"
+        },
+        {
+          "name": "Roman Empire (gold)",
+          "unit": "Aureus",
+          "days_equivalent": 25,
+          "modern_usd": 2500.0,
+          "basket_coverage": 20.0,
+          "note": "High-value coin used for state payments, not daily life.",
+          "year_range": "27 BCE to 284 CE",
+          "image": "/images/Roman.png"
+        },
+        {
+          "name": "Kushan Empire",
+          "unit": "Gold Dinar",
+          "days_equivalent": 20,
+          "modern_usd": 2000.0,
+          "basket_coverage": 12.0,
+          "note": "1 Gold Dinar equal to 20 days of labour wages.",
+          "year_range": "30 to 375 CE",
+          "image": "/images/kushan.png"
+        },
+        {
+          "name": "Gupta Empire (India)",
+          "unit": "Dinar (gold)",
+          "days_equivalent": 20,
+          "modern_usd": 2000.0,
+          "basket_coverage": 15.0,
+          "note": "1 gold coin held large purchasing power, far above daily needs.",
+          "year_range": "320 to 550 CE",
+          "image": "/images/gupta.png"
+        },
+        {
+          "name": "Maya (Classic Period)",
+          "unit": "Cacao Beans",
+          "days_equivalent": 1,
+          "modern_usd": 100.0,
+          "basket_coverage": 1.0,
+          "note": "100 cacao beans covered food staples but little surplus for housing/clothing.",
+          "year_range": "250 to 900 CE",
+          "image": "/images/Pacal_(Civ5).webp"
+        },
+        {
+          "name": "Aztec Empire",
+          "unit": "Cacao Beans",
+          "days_equivalent": 1,
+          "modern_usd": 100.0,
+          "basket_coverage": 0.9,
+          "note": "100 cacao beans covered food staples but little surplus for housing/clothing.",
+          "year_range": "1428 to 1521 CE",
+          "image": "/images/Montezuma_(Civ5).webp"
+        },
+        {
+          "name": "Inca Empire",
+          "unit": "Day worth of Labor",
+          "days_equivalent": 1,
+          "modern_usd": 100.0,
+          "basket_coverage": 1.5,
+          "note": "1 day's labor tribute covered food, clothing, and some housing needs.",
+          "year_range": "1438 to 1533 CE",
+          "image": "/images/Pachacuti_(Civ5).webp"
+        }
+      ]
+    }
+    
