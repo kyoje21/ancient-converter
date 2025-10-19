@@ -5,19 +5,32 @@ export default async function handler(req, res) {
     const { amount = "1", currency = "USD", mode = "modern-to-historical" } = req.query;
     const amt = Number(amount) || 0;
     const apiKey = process.env.FXRATES_API_KEY;
+
     if (!apiKey) {
       return res.status(500).json({ error: "FXRATES_API_KEY not set on server." });
     }
 
-    // Load historical data
-    const raw = await fs.readFile(new URL('../data/historical.json', import.meta.url), 'utf-8');
-    const historical = JSON.parse(raw);
+    let historical;
 
-    // Normalize currency code (upper)
+    // ✅ Load data differently depending on environment
+    if (process.env.VERCEL) {
+      // When deployed on Vercel, fetch from the public folder via URL
+      const baseUrl = process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "https://ancient-converter-pmuu.vercel.app";
+      const response = await fetch(`${baseUrl}/data/historical.json`);
+      if (!response.ok) throw new Error("Failed to fetch historical.json from public directory.");
+      historical = await response.json();
+    } else {
+      // When running locally
+      const raw = await fs.readFile("public/data/historical.json", "utf-8");
+      historical = JSON.parse(raw);
+    }
+
+    // Normalize currency code
     const cur = String(currency).toUpperCase();
 
     // Helper: fetch rate from FXRatesAPI
-    // We'll request base=USD&symbols=CUR and base=CUR&symbols=USD depending on mode for clarity
     async function getRate(base, symbols) {
       const url = `https://api.fxratesapi.com/latest?base=${encodeURIComponent(base)}&symbols=${encodeURIComponent(symbols)}`;
       const r = await fetch(url, { headers: { apikey: apiKey } });
@@ -31,7 +44,7 @@ export default async function handler(req, res) {
     let results = [];
 
     if (mode === "modern-to-historical") {
-      // Convert input amount in CUR to USD first by fetching base=CUR -> USD
+      // Convert input amount in CUR to USD
       const rateData = await getRate(cur, "USD");
       const curToUsd = rateData.rates && rateData.rates.USD;
       if (!curToUsd) throw new Error("Failed to get rate for provided currency.");
@@ -45,7 +58,7 @@ export default async function handler(req, res) {
           unit: civ.unit,
           year_range: civ.year_range,
           note: civ.note,
-          image: civ.image, 
+          image: civ.image,
           modern_usd_per_unit: unitUsd,
           input_amount: amt,
           input_currency: cur,
@@ -54,8 +67,7 @@ export default async function handler(req, res) {
         });
       }
     } else if (mode === "historical-to-modern") {
-      // Input amount interpreted as number of historical units. Convert to USD then to target currency.
-      // We'll fetch base=USD -> CUR to get usd -> cur rate for final conversion
+      // Historical → Modern
       const usdToCurData = await getRate("USD", cur);
       const usdToCur = usdToCurData.rates && usdToCurData.rates[cur];
       if (!usdToCur) throw new Error("Failed to get USD->target rate.");
