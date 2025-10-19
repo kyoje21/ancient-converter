@@ -81,7 +81,7 @@ async function convert() {
     latestData.forEach((r) => {
       const card = document.createElement("div");
       card.className = "flip-card w-full h-48 cursor-pointer";
-      const imageSrc = r.image || `images/default.webp`;
+      const imageSrc = r.image || `/images/default.webp`;
 
       card.innerHTML = `
         <div class="flip-inner relative w-full h-full transition-transform duration-500" style="transform-style: preserve-3d;">
