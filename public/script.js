@@ -20,7 +20,7 @@ let latestData = [];
 // ===== Mode Button =====
 const modeBtn = document.getElementById("modeBtn");
 
-// Initial button style
+// Initial button styling
 modeBtn.textContent = "Modern → Historical";
 modeBtn.style.backgroundColor = MODE_COLORS.modernToHistorical.border;
 modeBtn.style.color = MODE_COLORS.modernToHistorical.accent;
@@ -30,7 +30,7 @@ modeBtn.style.borderRadius = "0.5rem";
 modeBtn.style.cursor = "pointer";
 modeBtn.style.transition = "all 0.3s ease";
 
-// Toggle between modes
+// Toggle mode
 modeBtn.addEventListener("click", () => {
   mode = mode === "modern-to-historical" ? "historical-to-modern" : "modern-to-historical";
 
@@ -55,7 +55,7 @@ async function convert() {
   civGrid.innerHTML = "";
 
   try {
-    // ✅ Load from local JSON if running locally, otherwise from API
+    // ✅ Use the API in production, and local JSON in dev mode
     const apiUrl =
       window.location.hostname === "localhost"
         ? "/data/historical.json"
@@ -64,7 +64,7 @@ async function convert() {
     const res = await fetch(apiUrl);
     const data = await res.json();
 
-    // ✅ Handle local or API format
+    // ✅ Handle both local (JSON) and deployed (API) formats
     latestData = data.results || data.civilizations || [];
 
     const currentModeColor =
@@ -81,7 +81,11 @@ async function convert() {
     latestData.forEach((r) => {
       const card = document.createElement("div");
       card.className = "flip-card w-full h-48 cursor-pointer";
-      const imageSrc = r.image || `/images/default.webp`;
+
+      // ✅ Force absolute image path for Vercel deployment
+      const imageSrc = r.image?.startsWith("/")
+        ? r.image
+        : `/images/${r.image || "default.webp"}`;
 
       card.innerHTML = `
         <div class="flip-inner relative w-full h-full transition-transform duration-500" style="transform-style: preserve-3d;">
@@ -119,7 +123,7 @@ async function convert() {
       civGrid.appendChild(card);
     });
   } catch (err) {
-    console.error(err);
+    console.error("❌ Conversion error:", err);
     status.textContent = "Error: " + err.message;
   } finally {
     overlay.classList.add("hidden");
@@ -145,7 +149,6 @@ function getResultText(r) {
     return `${r.input_historical_amount} ${r.unit} ≈ ${value} ${r.target_currency}`;
   } 
   else if (r.modern_usd && r.unit) {
-    // ✅ Handle local JSON
     return `≈ ${r.modern_usd.toLocaleString()} USD per ${r.unit}`;
   }
   else {
