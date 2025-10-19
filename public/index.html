@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ancient Currency Converter</title>
+  <link rel="stylesheet" href="https://use.typekit.net/gvg0vkf.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="relative">
+
+  <!-- Loading Overlay -->
+  <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+    <svg class="animate-spin h-16 w-16 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+    </svg>
+  </div>
+
+  <!-- Page Container -->
+  <div class="max-w-6xl mx-auto p-6">
+    <h1 class="text-3xl font-semibold mb-3">Ancient Currency Converter</h1>
+
+    <!-- Converter Controls -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      
+      <!-- Currency -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Currency</label>
+        <select id="currency" class="styled-select w-full">
+          <option value="AED">🇦🇪 AED – UAE Dirham</option>
+          <option value="AUD">🇦🇺 AUD – Australian Dollar</option>
+          <option value="BRL">🇧🇷 BRL – Brazilian Real</option>
+          <option value="CAD">🇨🇦 CAD – Canadian Dollar</option>
+          <option value="CLP">🇨🇨 CLP – Chilean Peso</option>
+          <option value="CNY">🇨🇳 CNY – Chinese Yuan</option>
+          <option value="COP">🇨🇴 COP – Colombian Peso</option>
+          <option value="CRC">🇨🇷 CRC – Costa Rican Colón</option>
+          <option value="EGP">🇪🇬 EGP – Egyptian Pound</option>
+          <option value="EUR">🇪🇺 EUR – Euro</option>
+          <option value="GBP">🇬🇧 GBP – British Pound</option>
+          <option value="HKD">🇭🇰 HKD – Hong Kong Dollar</option>
+          <option value="IDR">🇮🇩 IDR – Indonesian Rupiah</option>
+          <option value="INR">🇮🇳 INR – Indian Rupee</option>
+          <option value="JPY">🇯🇵 JPY – Japanese Yen</option>
+          <option value="KRW">🇰🇷 KRW – South Korean Won</option>
+          <option value="MXN">🇲🇽 MXN – Mexican Peso</option>
+          <option value="NGN">🇳🇬 NGN – Nigerian Naira</option>
+          <option value="NZD">🇳🇿 NZD – New Zealand Dollar</option>
+          <option value="SAR">🇸🇦 SAR – Saudi Riyal</option>
+          <option value="SEK">🇸🇪 SEK – Swedish Krona</option>
+          <option value="SGD">🇸🇬 SGD – Singapore Dollar</option>
+          <option value="CHF">🇨🇭 CHF – Swiss Franc</option>
+          <option value="USD" selected>🇺🇸 USD – United States Dollar</option>
+          <option value="ZAR">🇿🇦 ZAR – South African Rand</option>
+        </select>
+      </div>
+
+      <!-- Amount -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Amount</label>
+        <input id="amount" type="number" value="100" class="styled-input w-full" />
+      </div>
+
+      <!-- Mode -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Mode</label>
+        <button id="modeBtn" class="w-full p-2 rounded">
+          Modern → Historical
+        </button>
+      </div>
+
+      <!-- Convert Button -->
+      <div class="flex items-end">
+        <button id="convertBtn" class="w-full p-2 rounded">
+          Convert
+        </button>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div>
+      <h3 class="text-md mb-3">
+        A currency converter to compare the daily wages of historical civilizations 
+        to modern currencies to give perspective on economic values across history.
+      </h3>
+    </div>
+
+    <!-- Status -->
+    <div id="status" class="text-sm text-gray-600 mb-4 text-center">
+      This comparison reflects the daily wage of a modern low-skilled laborer 
+      (≈ $100 USD per day) compared against estimated daily earnings in past civilizations.
+    </div>
+
+    <!-- Civilization Cards -->
+    <div id="civGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
+
+    <!-- Footer -->
+    <footer class="mt-8 text-xs text-gray-500 text-center">
+      Results are approximate and for informational purposes only. 
+      Historical exchange rates may vary based on source and methodology.
+    </footer>
+  </div>
+
+  <script type="module" src="./script.js"></script>
+
+</body>
+</html>

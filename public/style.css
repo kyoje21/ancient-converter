@@ -1,0 +1,255 @@
+@import "tailwindcss";
+
+/* ===============================
+   FONT IMPORTS (Adobe Typekit)
+   =============================== */
+@font-face {
+  font-family: "aviano-serif";
+  src: url("https://use.typekit.net/af/a66332/...") format("woff2");
+}
+
+@font-face {
+  font-family: "corporate-a";
+  src: url("https://use.typekit.net/af/d4d6a8/...") format("woff2");
+}
+
+@font-face {
+  font-family: "corporate-a-condensed";
+  src: url("https://use.typekit.net/af/b748df/...") format("woff2");
+}
+
+/* ===============================
+   THEME VARIABLES
+   =============================== */
+:root {
+  /* Background and Base */
+  --color-bg: #fff8e5; /* Doric Cream Background */
+  --color-text: #1B2B3A; /* Doric Navy - deep readable text */
+
+  /* Accents and Highlights */
+  --color-accent: #A43C2B; /* Doric Red - strong highlight */
+  --color-accent-dark: #7E2E22; /* deeper variant of Doric Red */
+  --color-blue: #4B92A9; /* Doric Sky Blue */
+  --color-blue-light: #B7D7DE; /* lighter blue for hover or backgrounds */
+
+  /* Gold and Olive for details */
+  --color-gold: #D5A73B;
+  --color-olive: #56634A;
+
+  /* Typography */
+  --font-heading: "aviano-serif", serif;
+  --font-body: "corporate-a", sans-serif;
+  --font-condensed: "corporate-a-condensed", sans-serif;
+}
+
+/* ===============================
+   GLOBAL TEXT STYLES
+   =============================== */
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  margin: 0.5em 0;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+h1::after {
+  content: "";
+  display: block;
+  width: 160px;
+  height: 3px;
+  margin: 0.5rem auto 1.2rem;
+  background: linear-gradient(to right, #A43C2B 50%, #4B92A9 50%);
+  border-radius: 2px;
+  opacity: 0.8;
+}
+
+h3 {
+  font-family: var(--font-body);
+  font-size: 1 rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+/* ===============================
+   BUTTONS
+   =============================== */
+button, .btn {
+  font-family: var(--font-condensed);
+  text-transform: uppercase;
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6em 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover, .btn:hover {
+  background: var(--color-accent-dark);
+  transform: scale(1.05);
+}
+
+/* ===============================
+   FLIP CARD STYLING
+   =============================== */
+.flip-card {
+  perspective: 1000px;
+  width: 100%;
+  height: 220px;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+}
+
+.flip-card.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-front,
+.flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* FRONT CARD */
+.flip-front {
+  background: #fffaf0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem;
+  position: relative;
+}
+
+/* Decorative accent for cards */
+.flip-front::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(213, 167, 59, 0.2) 0%,
+    rgba(213, 167, 59, 0.05) 60%,
+    transparent 100%
+  );
+  z-index: 0;
+}
+
+.flip-front img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 9999px;
+  position: relative;
+  z-index: 1;
+}
+
+/* BACK CARD */
+.flip-back {
+  background: var(--color-blue);
+  color: #fff;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  text-align: center;
+}
+
+.flip-back h3 {
+  font-family: var(--font-heading);
+  color: var(--color-gold);
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.flip-back p {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--color-blue-light);
+}
+
+/* ===============================
+   INPUT & DROPDOWN FIELDS
+   =============================== */
+.styled-input,
+.styled-select {
+  background-color: #fffaf0;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.6rem 0.8rem;
+  color: var(--color-text);
+  font-weight: 500;
+  font-family: var(--font-body);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
+}
+
+.styled-input:focus,
+.styled-select:focus {
+  outline: none;
+  box-shadow: 0 0 6px rgba(213, 167, 59, 0.4);
+  background-color: #fff8e5;
+}
+
+/* Dropdown custom arrow */
+.styled-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path fill='%239C7E38' d='M0 0l6 8 6-8z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 0.75rem;
+  padding-right: 2rem;
+}
+
+.styled-input:hover,
+.styled-select:hover {
+  background-color: #fff9ec;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+/* ===============================
+   FOOTER & MISC
+   =============================== */
+footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #777;
+  padding: 1rem;
+}
